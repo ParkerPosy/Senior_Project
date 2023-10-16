@@ -1,0 +1,45 @@
+.result {
+  border: 1px solid #d3d3d3;
+  border-radius: 2px;
+  margin: 0.5em 1em;
+}
+
+.result-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0.5em 1em;
+  border-bottom: 1px solid #d3d3d3;
+  align-items: center;
+}
+
+.result-title {
+  font-weight: bold;
+}
+
+.result-date {
+}
+
+.result-time {
+}
+
+.result-description {
+  padding: 1em 1em;
+}
+
+.result-footer {
+  border-top: 1px solid #d3d3d3;
+  padding: 0.5em 1em;
+}
+
+.result-address {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.result-google-link {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
