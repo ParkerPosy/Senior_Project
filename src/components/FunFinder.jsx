@@ -130,7 +130,7 @@ const FunFinder = () => {
                   <div className='results-container'>
                     {results.map((day, dayIndex) => (
                       <div key={`${dayIndex}-${day.date}`} className='day-container'>
-                        <div className='day-date'>{new Date(day.date).toLocaleDateString('en-US')}</div>
+                        <div className='day-date'>{dayjs(day.date).format('dddd, MMMM DD, YYYY')}</div>
                         {day.events.map((event, eventIndex) => (
                           <Event
                             key={`${dayIndex}-${eventIndex}-${event.title}`}
