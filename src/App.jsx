@@ -30,10 +30,8 @@ const App = () => {
           <Route
             path='*'
             element={
-              <Box className='content-container'>
-                <div>
-                  <h2>404 Page not found</h2>
-                </div>
+              <Box className='content-container center-item'>
+                <h2>404 Page not found</h2>
               </Box>
             }
           />

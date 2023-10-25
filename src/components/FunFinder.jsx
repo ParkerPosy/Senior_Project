@@ -13,8 +13,6 @@ import dayjs from 'dayjs';
 import Event from './Event';
 import '../styles/fun-finder.css';
 
-import mockData from '../mock-data.json';
-
 // const DEFAULT_VALIDATION = { show: false, title: '', description: '' };
 
 const FunFinder = () => {
@@ -35,12 +33,22 @@ const FunFinder = () => {
 
   useEffect(() => {
     if (searching) {
-      setTimeout(() => {
-        console.log(startDate.$d.toISOString().split('T')[0]);
-        console.log(endDate.$d.toISOString().split('T')[0]);
-        setResults(mockData.results);
-        console.log(mockData.results);
-      }, 5000);
+      console.log('here');
+      console.log(process.env.REACT_APP_API_IP);
+
+      const request = new Request(`http://${process.env.REACT_APP_API_IP}:3500/fun-search?` + new URLSearchParams({
+        startDate: startDate.format('YYYY-MM-DD'),
+        endDate: endDate.format('YYYY-MM-DD'),
+        location: selectedLocation.description,
+      }).toString());
+
+      console.log(request);
+      console.log(selectedLocation.description);
+
+      fetch(request).then(res => res.json())
+        .then(data => setResults(data.results))
+        .catch(error => console.error('Error fetching data:', error));
+      // .finally(() => setLoading(false));
     }
   }, [searching]);
 
@@ -121,7 +129,7 @@ const FunFinder = () => {
                       setSearching(false);
                       setResults(undefined);
                       setStartDate(dayjs(Date.now()));
-                      setEndDate(undefined);
+                      setEndDate(dayjs(Date.now()).add(1, 'day'));
                       setPotentialLocation('');
                       setSelectedLocation('');
                     }}>
