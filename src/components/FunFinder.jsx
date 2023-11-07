@@ -36,7 +36,7 @@ const FunFinder = () => {
       console.log('here');
       console.log(process.env.REACT_APP_API_IP);
 
-      const request = new Request(`http://${process.env.REACT_APP_API_IP}:3500/fun-search?` + new URLSearchParams({
+      const request = new Request(`https://${process.env.REACT_APP_API_IP}:3500/fun-search?` + new URLSearchParams({
         startDate: startDate.format('YYYY-MM-DD'),
         endDate: endDate.format('YYYY-MM-DD'),
         location: selectedLocation.description,
