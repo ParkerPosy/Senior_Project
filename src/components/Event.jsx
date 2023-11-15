@@ -6,7 +6,8 @@ const Event = ({ data }) => {
     <div className='result'>
       <div className='result-header'>
         <div className='result-title'>{data.title}</div>
-        <div className='result-time'>{`${data.startTime} - ${data.endTime}`}</div>
+        <div className='result-time'>{`${data.firstTime}`}</div>
+        {data.secondTime && <div className='result-time'>{`${data.secondTime}`}</div>}
       </div>
       <div className='result-description'>{data.description}</div>
       <div className='result-footer'>

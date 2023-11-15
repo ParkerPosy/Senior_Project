@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import usePlacesAutocomplete from 'use-places-autocomplete';
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from 'use-places-autocomplete';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
@@ -9,11 +12,8 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import dayjs from 'dayjs';
-// import ValidationDialog from './ValidationDialog';
 import Event from './Event';
 import '../styles/fun-finder.css';
-
-// const DEFAULT_VALIDATION = { show: false, title: '', description: '' };
 
 const FunFinder = () => {
   const {
@@ -29,26 +29,25 @@ const FunFinder = () => {
   const [results, setResults] = useState(undefined);
   const [startDate, setStartDate] = useState(dayjs(Date.now()));
   const [endDate, setEndDate] = useState(dayjs(Date.now()).add(1, 'day'));
-  // const [validation, setValidation] = useState(DEFAULT_VALIDATION);
 
   useEffect(() => {
     if (searching) {
-      console.log('here');
-      console.log(process.env.REACT_APP_API_IP);
+      (async () => {
+        const results = await getGeocode({ address: selectedLocation.description });
+        const { lat, lng } = getLatLng(results[0]);
 
-      const request = new Request(`https://${process.env.REACT_APP_API_IP}:3500/fun-search?` + new URLSearchParams({
-        startDate: startDate.format('YYYY-MM-DD'),
-        endDate: endDate.format('YYYY-MM-DD'),
-        location: selectedLocation.description,
-      }).toString());
+        const request = new Request(`http://${process.env.REACT_APP_API_IP}:3500/fun-search?` + new URLSearchParams({
+          startDate: startDate.format('YYYY-MM-DD'),
+          endDate: endDate.format('YYYY-MM-DD'),
+          location: selectedLocation.description,
+          lat,
+          lng,
+        }).toString());
 
-      console.log(request);
-      console.log(selectedLocation.description);
-
-      fetch(request).then(res => res.json())
-        .then(data => setResults(data.results))
-        .catch(error => console.error('Error fetching data:', error));
-      // .finally(() => setLoading(false));
+        fetch(request).then(res => res.json())
+          .then(data => setResults(data))
+          .catch(error => console.error('Error fetching data:', error));
+      })();
     }
   }, [searching]);
 
@@ -138,7 +137,7 @@ const FunFinder = () => {
                   <div className='results-container'>
                     {results.map((day, dayIndex) => (
                       <div key={`${dayIndex}-${day.date}`} className='day-container'>
-                        <div className='day-date'>{dayjs(day.date).format('dddd, MMMM DD, YYYY')}</div>
+                        <div className='day-date'>{dayjs(day.date).add(-1, 'day').format('dddd, MMMM DD, YYYY')}</div>
                         {day.events.map((event, eventIndex) => (
                           <Event
                             key={`${dayIndex}-${eventIndex}-${event.title}`}
@@ -152,13 +151,6 @@ const FunFinder = () => {
               )}
             </>
           )}
-          {/* {validation.show &&
-            <ValidationDialog
-              title={validation.title}
-              description={validation.description}
-              onClose={validation.onClose}
-            />
-          } */}
         </Box>
       </LocalizationProvider>
 
