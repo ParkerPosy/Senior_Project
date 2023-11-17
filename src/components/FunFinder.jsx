@@ -36,7 +36,7 @@ const FunFinder = () => {
         const results = await getGeocode({ address: selectedLocation.description });
         const { lat, lng } = getLatLng(results[0]);
 
-        const request = new Request(`http://${process.env.REACT_APP_API_IP}:3500/fun-search?` + new URLSearchParams({
+        const request = new Request(`https://${process.env.REACT_APP_API_IP}:3500/fun-search?` + new URLSearchParams({
           startDate: startDate.format('YYYY-MM-DD'),
           endDate: endDate.format('YYYY-MM-DD'),
           location: selectedLocation.description,
