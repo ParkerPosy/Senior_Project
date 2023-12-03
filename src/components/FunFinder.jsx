@@ -32,30 +32,27 @@ const FunFinder = () => {
   const [startDate, setStartDate] = useState(dayjs(Date.now()));
   const [endDate, setEndDate] = useState(dayjs(Date.now()).add(1, 'day'));
 
-  useEffect(() => {
-    if (searching) {
-      (async () => {
-        const results = await getGeocode({ address: selectedLocation.description });
-        const { lat, lng } = getLatLng(results[0]);
+  const funSearch = async () => {
+    setSearching(prev => !prev);
+    const results = await getGeocode({ address: selectedLocation.description });
+    const { lat, lng } = getLatLng(results[0]);
 
-        const request = new Request(`https://${process.env.REACT_APP_API_IP}:3500/fun-search?` + new URLSearchParams({
-          startDate: startDate.format('YYYY-MM-DD'),
-          endDate: endDate.format('YYYY-MM-DD'),
-          location: selectedLocation.description,
-          lat,
-          lng,
-          ...searchSettings.checkboxes,
-          ...searchSettings.sliders,
-          use_ai: searchSettings.use_ai,
-          radius: searchSettings.radius,
-        }).toString());
+    const request = new Request(`https://${process.env.REACT_APP_API_IP}:3500/fun-search?` + new URLSearchParams({
+      startDate: startDate.format('YYYY-MM-DD'),
+      endDate: endDate.format('YYYY-MM-DD'),
+      location: selectedLocation.description,
+      lat,
+      lng,
+      ...searchSettings.checkboxes,
+      ...searchSettings.sliders,
+      use_ai: searchSettings.use_ai,
+      radius: searchSettings.radius,
+    }).toString());
 
-        fetch(request).then(res => res.json())
-          .then(data => setResults(data))
-          .catch(error => console.error('Error fetching data:', error));
-      })();
-    }
-  }, [searching]);
+    fetch(request).then(res => res.json())
+      .then(data => setResults(data))
+      .catch(error => console.error('Error fetching data:', error));
+  };
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -115,7 +112,7 @@ const FunFinder = () => {
               <Button
                 variant='contained'
                 size='large'
-                onClick={() => setSearching(prev => !prev)}
+                onClick={funSearch}
                 disabled={!startDate || !endDate || !selectedLocation}>
                   Search
               </Button>
