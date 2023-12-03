@@ -6,21 +6,22 @@
 
 .result-header {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
   padding: 0.5em 1em;
   border-bottom: 1px solid #d3d3d3;
   align-items: center;
+  text-align: center;
 }
 
 .result-title {
   font-weight: bold;
 }
 
-.result-date {
-}
-
-.result-time {
+.additional-result-info {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .result-description {

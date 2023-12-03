@@ -7,18 +7,18 @@ const Navbar = () => {
 
   return (
     <nav className='navigation'>
-      <NavLink to='/fun-finder'  className='title-link'>
+      <NavLink to='/search'  className='title-link'>
         FunNearby
       </NavLink>
       <div className={isNavExpanded ? 'navigation-menu expanded' : 'navigation-menu'}>
         <div className='nav-container'>
-          <NavLink to='/fun-finder' className='nav-link'>
-            <div>Fun Finder</div>
+          <NavLink to='/search' className='nav-link' onClick={() => setIsNavExpanded(prev => !prev)}>
+            <div>Search</div>
           </NavLink>
-          <NavLink to='/settings' className='nav-link'>
+          <NavLink to='/settings' className='nav-link' onClick={() => setIsNavExpanded(prev => !prev)}>
             <div>Settings</div>
           </NavLink>
-          <NavLink to='/about' className='nav-link'>
+          <NavLink to='/about' className='nav-link' onClick={() => setIsNavExpanded(prev => !prev)}>
             <div>About</div>
           </NavLink>
         </div>
