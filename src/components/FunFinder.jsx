@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -19,11 +19,11 @@ import { SearchSettingsContext } from '../searchSettingsContext';
 const FunFinder = () => {
   const { searchSettings } = useContext(SearchSettingsContext);
   const {
-    ready,
+    // ready,
     value: potentialLocation,
     setValue: setPotentialLocation,
     suggestions,
-    clearSuggestions,
+    // clearSuggestions,
   } = usePlacesAutocomplete();
 
   const [searching, setSearching] = useState(false);
