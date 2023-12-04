@@ -93,6 +93,7 @@ const FunFinder = () => {
             </div>
             <FormControl fullWidth margin='normal' variant='filled'>
               <Autocomplete
+                noOptionsText={'Begin typing for suggestions...'}
                 label='Location'
                 onChange={(_, newValue) => setSelectedLocation(newValue)}
                 options={suggestions.data}
