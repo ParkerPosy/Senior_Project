@@ -32,12 +32,24 @@
   color: #1767a6;
   font-weight: bold;
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.33em;
 }
 
 .navigation-menu .nav-link div {
   text-decoration: none;
   display: block;
   width: 100%;
+}
+
+.navigation-menu .nav-link svg {
+  width: 100%;
+  height: auto;
+}
+
+.navigation-menu .nav-link g {
+  fill: #1e1f20;
 }
 
 .title-link {
