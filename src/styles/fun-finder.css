@@ -83,7 +83,7 @@
 }
 
 .day-container {
-  border: 1px solid #d3d3d3;
+  border: 2px solid #d3d3d3;
   border-radius: 4px;
   margin: 0.75em;
   display: flex;
@@ -93,9 +93,10 @@
 }
 
 .day-date {
-  border-bottom: 1px solid #d3d3d3;
+  border-bottom: 2px solid #d3d3d3;
   padding: 0.5em;
   margin-bottom: 0.5em;
   font-weight: bold;
   font-size: 20px;
+  background-color: #f3f4f8;
 }
