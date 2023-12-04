@@ -35,6 +35,7 @@
   display: flex;
   align-items: center;
   gap: 0.33em;
+  padding: 0.25em;
 }
 
 .navigation-menu .nav-link div {
@@ -173,6 +174,10 @@
     text-decoration: none;
     width: 100%;
     padding: 1.5rem 0;
+  }
+
+  .navigation-menu .nav-link svg {
+    display: none;
   }
 
   .navigation-menu .nav-link:hover {
